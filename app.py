@@ -447,7 +447,7 @@ def upload_image3():
         return redirect(request.url)
     file = request.files['file']
     if file.filename == '':
-        flash('No image selected for uploading')
+        flash('No image selected for uploading ok')
         return redirect(request.url)
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
@@ -576,4 +576,4 @@ def upload_image5():
 
     return jsonify({"success": True, "response": "Pet added"})
 if __name__ == "__main__":
-    app.run(port=4000, debug=True)
+    app.run(port=4040, debug=True)
