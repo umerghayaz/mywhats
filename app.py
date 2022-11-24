@@ -21,7 +21,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 from flask_cors import CORS, cross_origin
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+postgres://ytdrsxkovlkhvs:d77538a611b958db0cadd94c7b66531fde344e6554ac4dd2dc539f12ce47101c@ec2-3-220-207-90.compute-1.amazonaws.com:5432/de6vhnitl87d32'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://ytdrsxkovlkhvs:d77538a611b958db0cadd94c7b66531fde344e6554ac4dd2dc539f12ce47101c@ec2-3-220-207-90.compute-1.amazonaws.com:5432/de6vhnitl87d32'
 db = SQLAlchemy(app)
 messenger = WhatsApp(environ.get("TOKEN"), phone_number_id=environ.get("PHONE_NUMBER_ID"))
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
