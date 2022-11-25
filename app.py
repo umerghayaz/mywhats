@@ -5,6 +5,7 @@ from heyoo import WhatsApp
 # messenger.send_message('Your message ', '923462901820')
 import os
 import json
+import uuid
 
 from heyoo import WhatsApp
 from os import environ
@@ -26,7 +27,7 @@ db = SQLAlchemy(app)
 messenger = WhatsApp(environ.get("TOKEN"), phone_number_id=environ.get("PHONE_NUMBER_ID"))
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','wav','mpeg','mp3','mp4'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','wav','mpeg','mp3','mp4','docx','xlsx','xls'])
 
 app.secret_key = "super secret key"
 
@@ -120,6 +121,7 @@ def hook():
     # db.session.add(pet)
     # db.session.commit()
     changed_field = messenger.changed_field(data)
+    id = uuid.uuid4()
     if changed_field == "messages":
         new_message = messenger.get_mobile(data)
         print(new_message)
@@ -188,6 +190,7 @@ def hook():
                 print(f"image_url {image_url}")
                 # logging.info(f"{mobile} image_url {image_url}")
                 image_filename = messenger.download_media(image_url, mime_type)
+                
                 print('image_filenamge',image_filename,'data',data,'message_type',message_type)
                 reg = Userresponse(reciever_response_whole=data,message1=image_filename,type=message_type)
                 db.session.add(reg)
